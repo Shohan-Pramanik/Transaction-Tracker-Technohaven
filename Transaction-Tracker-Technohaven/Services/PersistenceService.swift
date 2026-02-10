@@ -1,8 +1,8 @@
 import Foundation
 
-protocol PersistenceServiceProtocol: Sendable {
-    func save<T: Codable & Sendable>(_ value: T, forKey key: String) throws
-    func load<T: Codable & Sendable>(forKey key: String, as type: T.Type) throws -> T?
+protocol PersistenceServiceProtocol {
+    func save<T: Codable>(_ value: T, forKey key: String) throws
+    func load<T: Codable>(forKey key: String, as type: T.Type) throws -> T?
     func remove(forKey key: String)
 }
 
@@ -20,14 +20,14 @@ enum PersistenceError: LocalizedError {
     }
 }
 
-nonisolated final class PersistenceService: PersistenceServiceProtocol, @unchecked Sendable {
+final class PersistenceService: PersistenceServiceProtocol {
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
 
-    func save<T: Codable & Sendable>(_ value: T, forKey key: String) throws {
+    func save<T: Codable>(_ value: T, forKey key: String) throws {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         guard let data = try? encoder.encode(value) else {
@@ -36,7 +36,7 @@ nonisolated final class PersistenceService: PersistenceServiceProtocol, @uncheck
         defaults.set(data, forKey: key)
     }
 
-    func load<T: Codable & Sendable>(forKey key: String, as type: T.Type) throws -> T? {
+    func load<T: Codable>(forKey key: String, as type: T.Type) throws -> T? {
         guard let data = defaults.data(forKey: key) else { return nil }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

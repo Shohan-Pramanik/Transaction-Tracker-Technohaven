@@ -4,7 +4,7 @@ import Foundation
 
 // MARK: - Mock Services
 
-nonisolated final class MockAuthService: AuthenticationServiceProtocol, @unchecked Sendable {
+final class MockAuthService: AuthenticationServiceProtocol {
     var shouldSucceed = true
     var loginCallCount = 0
     var logoutCallCount = 0
@@ -22,7 +22,7 @@ nonisolated final class MockAuthService: AuthenticationServiceProtocol, @uncheck
     }
 }
 
-nonisolated final class MockTransactionService: TransactionServiceProtocol, @unchecked Sendable {
+final class MockTransactionService: TransactionServiceProtocol {
     var shouldSucceed = true
     var mockTransactions: [Transaction] = []
     var fetchCallCount = 0
@@ -57,7 +57,7 @@ nonisolated final class MockTransactionService: TransactionServiceProtocol, @unc
     }
 }
 
-nonisolated final class MockBiometricService: BiometricServiceProtocol, @unchecked Sendable {
+final class MockBiometricService: BiometricServiceProtocol {
     var isAvailable = true
     var shouldSucceed = true
 
@@ -73,16 +73,16 @@ nonisolated final class MockBiometricService: BiometricServiceProtocol, @uncheck
     }
 }
 
-nonisolated final class MockPersistenceService: PersistenceServiceProtocol, @unchecked Sendable {
+final class MockPersistenceService: PersistenceServiceProtocol {
     var storage: [String: Data] = [:]
 
-    func save<T: Codable & Sendable>(_ value: T, forKey key: String) throws {
+    func save<T: Codable>(_ value: T, forKey key: String) throws {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         storage[key] = try encoder.encode(value)
     }
 
-    func load<T: Codable & Sendable>(forKey key: String, as type: T.Type) throws -> T? {
+    func load<T: Codable>(forKey key: String, as type: T.Type) throws -> T? {
         guard let data = storage[key] else { return nil }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

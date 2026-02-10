@@ -1,6 +1,6 @@
 import Foundation
 
-nonisolated struct FundTransfer: Sendable {
+struct FundTransfer: Codable {
     let receiverId: String
     let amount: Double
 }

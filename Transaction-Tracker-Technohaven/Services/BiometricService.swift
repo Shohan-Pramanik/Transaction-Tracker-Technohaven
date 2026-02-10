@@ -1,7 +1,7 @@
 import Foundation
 import LocalAuthentication
 
-protocol BiometricServiceProtocol: Sendable {
+protocol BiometricServiceProtocol {
     func canUseBiometrics() -> Bool
     func authenticate() async throws -> Bool
 }
@@ -23,7 +23,7 @@ enum BiometricError: LocalizedError {
     }
 }
 
-nonisolated final class BiometricService: BiometricServiceProtocol {
+final class BiometricService: BiometricServiceProtocol {
     func canUseBiometrics() -> Bool {
         let context = LAContext()
         var error: NSError?

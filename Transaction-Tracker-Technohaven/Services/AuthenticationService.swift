@@ -1,6 +1,6 @@
 import Foundation
 
-protocol AuthenticationServiceProtocol: Sendable {
+protocol AuthenticationServiceProtocol {
     func login(credentials: LoginCredentials) async throws -> User
     func logout() async
 }
@@ -22,7 +22,7 @@ enum AuthenticationError: LocalizedError, Equatable {
     }
 }
 
-nonisolated final class AuthenticationService: AuthenticationServiceProtocol {
+final class AuthenticationService: AuthenticationServiceProtocol {
     private let validEmail = "test@app.com"
     private let validPassword = "123456"
 

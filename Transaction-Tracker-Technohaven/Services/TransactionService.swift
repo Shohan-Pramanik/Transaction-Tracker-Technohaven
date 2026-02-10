@@ -1,6 +1,6 @@
 import Foundation
 
-protocol TransactionServiceProtocol: Sendable {
+protocol TransactionServiceProtocol {
     func fetchTransactions() async throws -> [Transaction]
     func sendFunds(transfer: FundTransfer, currentBalance: Double) async throws -> Transaction
 }
@@ -25,7 +25,7 @@ enum TransactionError: LocalizedError, Equatable {
     }
 }
 
-nonisolated final class TransactionService: TransactionServiceProtocol {
+final class TransactionService: TransactionServiceProtocol {
     func fetchTransactions() async throws -> [Transaction] {
         try await Task.sleep(nanoseconds: 300_000_000)
 

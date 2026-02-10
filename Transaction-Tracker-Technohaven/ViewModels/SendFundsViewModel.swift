@@ -13,12 +13,12 @@ final class SendFundsViewModel {
     let currentBalance: Double
 
     private let transactionService: TransactionServiceProtocol
-    private let onTransferComplete: @MainActor (Transaction, Double) -> Void
+    private let onTransferComplete: (Transaction, Double) -> Void
 
     init(
         currentBalance: Double,
         transactionService: TransactionServiceProtocol,
-        onTransferComplete: @escaping @MainActor (Transaction, Double) -> Void
+        onTransferComplete: @escaping (Transaction, Double) -> Void
     ) {
         self.currentBalance = currentBalance
         self.transactionService = transactionService

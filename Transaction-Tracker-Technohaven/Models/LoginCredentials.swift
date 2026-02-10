@@ -1,6 +1,6 @@
 import Foundation
 
-nonisolated struct LoginCredentials: Sendable {
+struct LoginCredentials: Codable {
     let email: String
     let password: String
 }

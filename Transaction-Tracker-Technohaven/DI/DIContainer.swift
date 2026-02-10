@@ -44,7 +44,7 @@ final class DIContainer: ObservableObject {
         )
     }
 
-    func makeSendFundsViewModel(balance: Double, onTransferComplete: @escaping @MainActor (Transaction, Double) -> Void) -> SendFundsViewModel {
+    func makeSendFundsViewModel(balance: Double, onTransferComplete: @escaping (Transaction, Double) -> Void) -> SendFundsViewModel {
         SendFundsViewModel(
             currentBalance: balance,
             transactionService: transactionService,
