@@ -1,61 +1,33 @@
-//
-//  ContentView.swift
-//  Transaction-Tracker-Technohaven
-//
-//  Created by Starconnect on 2/10/26.
-//
-
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @EnvironmentObject private var container: DIContainer
+    @State private var authenticatedUser: User?
+    @State private var isLoggedIn = false
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        Group {
+            if isLoggedIn, let user = authenticatedUser {
+                HomeView(
+                    viewModel: container.makeHomeViewModel(user: user),
+                    onLogout: {
+                        withAnimation {
+                            isLoggedIn = false
+                            authenticatedUser = nil
+                        }
                     }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                )
+            } else {
+                LoginView(
+                    viewModel: container.makeLoginViewModel(),
+                    onLoginSuccess: { user in
+                        withAnimation {
+                            authenticatedUser = user
+                            isLoggedIn = true
+                        }
                     }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+                )
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

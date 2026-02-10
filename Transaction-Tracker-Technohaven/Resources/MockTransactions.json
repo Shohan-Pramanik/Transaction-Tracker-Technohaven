@@ -1,0 +1,58 @@
+[
+    {
+        "id": "TXN001",
+        "date": "2025-01-15T10:30:00Z",
+        "title": "Salary Deposit",
+        "amount": 5000.00,
+        "type": "credit"
+    },
+    {
+        "id": "TXN002",
+        "date": "2025-01-16T14:20:00Z",
+        "title": "Grocery Shopping",
+        "amount": 150.75,
+        "type": "debit"
+    },
+    {
+        "id": "TXN003",
+        "date": "2025-01-17T09:15:00Z",
+        "title": "Electric Bill Payment",
+        "amount": 85.00,
+        "type": "debit"
+    },
+    {
+        "id": "TXN004",
+        "date": "2025-01-18T16:45:00Z",
+        "title": "Freelance Payment",
+        "amount": 1200.00,
+        "type": "credit"
+    },
+    {
+        "id": "TXN005",
+        "date": "2025-01-19T11:00:00Z",
+        "title": "Restaurant Dinner",
+        "amount": 65.50,
+        "type": "debit"
+    },
+    {
+        "id": "TXN006",
+        "date": "2025-01-20T08:30:00Z",
+        "title": "Internet Subscription",
+        "amount": 49.99,
+        "type": "debit"
+    },
+    {
+        "id": "TXN007",
+        "date": "2025-01-21T13:00:00Z",
+        "title": "Transfer from Savings",
+        "amount": 2000.00,
+        "type": "credit"
+    },
+    {
+        "id": "TXN008",
+        "date": "2025-01-22T15:30:00Z",
+        "title": "Online Shopping",
+        "amount": 320.00,
+        "type": "debit"
+    }
+]

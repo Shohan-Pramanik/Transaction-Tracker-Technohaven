@@ -1,32 +1,13 @@
-//
-//  Transaction_Tracker_TechnohavenApp.swift
-//  Transaction-Tracker-Technohaven
-//
-//  Created by Starconnect on 2/10/26.
-//
-
 import SwiftUI
-import SwiftData
 
 @main
 struct Transaction_Tracker_TechnohavenApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @StateObject private var container = DIContainer()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(container)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
